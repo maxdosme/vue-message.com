@@ -1,10 +1,87 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <title>Vue.JS单页应用 — 联系人管理</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>单页应用 - 联系人管理</title>
+
+    <!-- css -->
+    <link href="css/cssreset.css" rel="stylesheet">
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="css/common.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
 </head>
 <body>
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-brand">单页应用—联系人管理器</div>
+    </div>
+</nav>
+<div class="container" id="app">
+    <div>
+        <h4><b>联系人</b></h4>
+    </div>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <td>姓名：</td>
+            <td>性别：</td>
+            <td>电话：</td>
+        </tr>
+        </thead>
+        <tbody>
+            <tr v-for="item in list">
+                <td>{{ item.name }}</td>
+                <td>{{ item.sex }}</td>
+                <td>{{ item.phone }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="js/jquery-1.11.2.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="js/vue.js"></script>
+<script src="js/bootstrap.js"></script>
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            row: {
+                name: '',
+                sex: '',
+                phone: ''
+            },
+            list: [
+                {
+                    name: '深圳有事Q我',
+                    sex: '男',
+                    phone: '2345678'
+                },
+                {
+                    name: '上海没事别烦我',
+                    sex: '女',
+                    phone: '1293587023'
+                },
+                {
+                    name: '北京蓝色医生',
+                    sex: '男',
+                    phone: '1332345876'
+                }]
+            },
+        methods: {
 
+        }
+    })
+</script>
 </body>
 </html>
