@@ -39,7 +39,7 @@
         </tr>
         </thead>
         <tbody>
-            <tr v-for="item in list" @click="showRow(item)">
+            <tr v-for="item in list" v-on:click="showrow(item)">
                 <td>{{ item.name }}</td>
                 <td>{{ item.sex }}</td>
                 <td>{{ item.phone }}</td>
@@ -72,9 +72,9 @@
                 </div>
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
-                        <button class="btn btn-primary" @click="newRow">新增</button>
-                        <button class="btn btn-primary" @click="saveRow">保存</button>
-                        <button class="btn btn-danger">删除</button>
+                        <button class="btn btn-primary" @click="newrow">新增</button>
+                        <button class="btn btn-primary" @click="saverow">保存</button>
+                        <button class="btn btn-danger" @click="deleterow">删除</button>
                     </div>
                 </div>
             </form>
@@ -86,11 +86,12 @@
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="js/vue.js"></script>
 <script src="js/bootstrap.js"></script>
+<script src="js/underscore.js"></script>
 <script>
     new Vue({
         el: '#app',
-        allownew: false,
         data: {
+            allownew: false,
             row: {
                 id: 0,
                 name: '',
@@ -118,22 +119,31 @@
                 }]
             },
         methods: {
-            showRow: function (value) {
-                this.row = JSON.parse(JSON.stringify(value))
+            showrow: function(value) {
+                //this.row = value
+                this.row=JSON.parse(JSON.stringify(value))
             },
-            newRow: function () {
-                this.row = {id:0, name:'', sex:'', phone:''}
+            newrow: function(){
+                //console.log(this.row)
+                this.row={id:0, name: '', birthday: '',phone: ''}
             },
-            saveRow: function(){
+            saverow: function(){
                 if(this.row.id===0){
-                    this.row.id=_.max(this.list, function(stooge){ return stooge.id; }).id+1
-                    this.list.push(JSON.parse(JSON.stringify(this.row)))
+                    this.row.id=_.max(this.list, function(stooge){ return stooge.id; }).id+1;
+                    this.list.push(JSON.parse(JSON.stringify(this.row)));
                 }else {
-                    Object.assign(this.list.find(x=>x.id===this.row.id),this.row)
+                    Object.assign(this.list.find(x=>x.id===this.row.id),this.row);
                 }
+            },
+            deleterow: function(){
+                if(this.row.id!=0){
+                    this.list.splice(_.findIndex(this.list, {id:this.row.id}),1)
+                }
+                this.newrow()
             }
         }
     })
+    //_.max和_.findIndex是Underscore库中的函数，js原生函数对于Array的操作稍嫌复杂。
 </script>
 </body>
 </html>
